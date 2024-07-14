@@ -1,2 +1,2 @@
-# polyfills
-Polyfills for different methods
+# Polyfills
+Please check the code.txt file for the code.
