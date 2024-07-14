@@ -109,3 +109,104 @@ if (!document.querySelector) {
     }
   };
 }
+
+####### Array methods ###############
+
+# Array.forEach
+if (!Array.prototype.forEach) {
+  Array.prototype.forEach = function(callback, thisArg) {
+    if (this == null) {
+      throw new TypeError('this is null or not defined');
+    }
+
+    const array = this;
+    const length = array.length;
+
+    if (typeof callback !== 'function') {
+      throw new TypeError(callback + ' is not a function');
+    }
+
+    for (let i = 0; i < length; i++) {
+      if (i in array) {
+        callback.call(thisArg, array[i], i, array);
+      }
+    }
+  };
+}
+
+# Array.map
+if (!Array.prototype.map) {
+  Array.prototype.map = function(callback, thisArg) {
+    if (this == null) {
+      throw new TypeError('this is null or not defined');
+    }
+
+    const array = this;
+    const length = array.length
+    const result = new Array(length);
+
+    if (typeof callback !== 'function') {
+      throw new TypeError(callback + ' is not a function');
+    }
+
+    for (let i = 0; i < length; i++) {
+      if (i in array) {
+        result[i] = callback.call(thisArg, array[i], i, array);
+      }
+    }
+
+    return result;
+  };
+}
+
+# Array.reduce
+
+if (!Array.prototype.reduce) {
+  Array.prototype.reduce = function(callback, initialValue) {
+    if (this == null) {
+      throw new TypeError('this is null or not defined');
+    }
+
+    const array = this;
+    const length = array.length
+    let accumulator = initialValue;
+
+    if (typeof callback !== 'function') {
+      throw new TypeError(callback + ' is not a function');
+    }
+
+    for (let i = 0; i < length; i++) {
+      if (i in array) {
+        accumulator = callback.call(undefined, accumulator, array[i], i, array);
+      }
+    }
+
+    return accumulator;
+  };
+}
+# Array.filter
+
+if (!Array.prototype.filter) {
+  Array.prototype.filter = function(callback, thisArg) {
+    if (this == null) {
+      throw new TypeError('this is null or not defined');
+    }
+
+    const result = [];
+    const array = this;
+
+    if (typeof callback !== 'function') {
+      throw new TypeError(callback + ' is not a function');
+    }
+
+    for (let i = 0; i < array.length; i++) {
+      if (i in array) {
+        if (callback.call(thisArg, array[i], i, array)) {
+          result.push(array[i]);
+        }
+      }
+    }
+
+    return result;
+  };
+}
