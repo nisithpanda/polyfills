@@ -210,3 +210,49 @@ if (!Array.prototype.filter) {
     return result;
   };
 }
+
+# Array.find
+
+if (!Array.prototype.find) {
+  
+  Array.prototype.find = function(callback, thisArg) {
+    if (this == null) {
+      throw new TypeError('this is null or not defined');
+    }
+
+    if (typeof callback !== 'function') {
+      throw new TypeError(callback + ' is not a function');
+    }
+
+    for (let i = 0; i < this.length; i++) {
+      if (callback.call(thisArg, this[i], i, this)) {
+        return this[i];
+      }
+    }
+    return undefined;
+  };
+}
+
+# Array.findIndex
+
+if (!Array.prototype.findIndex) {
+  Array.prototype.findIndex = function(callback, thisArg) {
+    if (this == null) {
+      throw new TypeError('Array.prototype.findIndex called on null or undefined');
+    }
+
+    if (typeof callback !== 'function') {
+      throw new TypeError('callback must be a function');
+    }
+
+    var array = this;
+
+    for (var i = 0; i < array.length; i++) {
+      if (i in array && callback.call(thisArg, array[i], i, array)) {
+        return i;
+      }
+    }
+
+    return -1;
+  };
+}
